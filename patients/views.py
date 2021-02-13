@@ -12,6 +12,7 @@ def signup(request):
     # signup process
     if request.method=='POST':
         # checks if request method is POST
+        username = request.POST.get('username','')
         mail = request.POST.get('email','')
         fname = request.POST.get('fname','')
         lname = request.POST.get('lname','')
@@ -32,7 +33,7 @@ def signup(request):
 
         # to check if password and conf password match
         if password==conf_pass:
-            user_obj = PatientProfile.objects.create_user(first_name = fname, last_name = lname, password = password, email = mail, city = city, date_of_birth=date_of_birth, country = country)
+            user_obj = PatientProfile.objects.create_user(username = username, first_name = fname, last_name = lname, password = password, email = mail, city = city, date_of_birth=date_of_birth, country = country)
             user_obj.save()
 
     return redirect('/')
